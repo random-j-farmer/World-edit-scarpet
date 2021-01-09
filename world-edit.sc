@@ -311,7 +311,6 @@ global_clipboard = [];
 global_debug_rendering = false;
 global_reach = 4.5;
 
-
 //Extra boilerplate
 
 global_affected_blocks=[];
@@ -494,10 +493,13 @@ __on_tick() ->
 );
 
 
-__on_player_swings_hand(player, hand) ->
-//__on_player_clicks_block(player, block, face) -> 
+// with (currently unreleased) carpet 1.4.22 or better,
+// __on_player_swings_hand should be used
+// in earlier versions we need __on_player_clicks_block
+// __on_player_swings_hand(player, hand) ->
+__on_player_clicks_block(player, block, face) ->
 (
-    if(player~'holds':0==global_wand,
+  if(player~'holds':0==global_wand,
         if (global_quick_select,
             _set_selection_point('from')
         , // else
