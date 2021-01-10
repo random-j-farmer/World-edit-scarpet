@@ -496,8 +496,15 @@ __on_tick() ->
 // with (currently unreleased) carpet 1.4.22 or better,
 // __on_player_swings_hand should be used
 // in earlier versions we need __on_player_clicks_block
-// __on_player_swings_hand(player, hand) ->
+global_use_on_click = system_info('scarpet_version') < '1.4.22';
+
 __on_player_clicks_block(player, block, face) ->
+    if(global_use_on_click, _handle_click_or_swing(player));
+
+__on_player_swings_hand(player, hand) ->
+    if(!global_use_on_click, _handle_click_or_swing(player));
+
+_handle_click_or_swing(player) ->
 (
   if(player~'holds':0==global_wand,
         if (global_quick_select,
